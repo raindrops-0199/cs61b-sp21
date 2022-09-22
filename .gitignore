@@ -8,6 +8,7 @@
 !.gitignore
 !library-sp21
 !foods.csv
+!README.md
 *.class
 *.log
 *.ctxt
