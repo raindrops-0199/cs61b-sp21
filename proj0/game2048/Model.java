@@ -175,7 +175,64 @@ public class Model extends Observable {
      * 2. There are two adjacent tiles with the same value.
      */
     public static boolean atLeastOneMoveExists(Board b) {
-        // TODO: Fill in this function.
+        return Model.emptySpaceExists(b) || Model.adjacentSameValExists(b);
+    }
+
+    /** Returns true if there are two adjacent tiles with the same value. */
+    private static boolean adjacentSameValExists(Board b) {
+        int size = b.size();
+        for (int i = 0; i < size; i++){
+            for (int j = 0; j < size; j++){
+                Tile t = b.tile(i, j);
+                if (t != null){
+                    if (Model.adjacentSameVal(b, t.value(), i, j)){
+                        return true;
+                    }
+                }
+            }
+        }
+        return false;
+    }
+
+    /**
+     * Returns true if given tile's adjacent tiles has the same value.
+     * @param value is the value of given tile.
+     * @param col is the column of given tile.
+     * @param row is the row of given tile.
+     */
+    private static boolean adjacentSameVal(Board b, int value, int col, int row){
+        int size = b.size();
+        int adjCol, adjRow;
+        adjCol = col - 1;
+        adjRow = row;
+        if (Model.checkSameVal(b, value, adjCol, adjRow)){
+            return true;
+        }
+        adjCol = col + 1;
+        if (Model.checkSameVal(b, value, adjCol, adjRow)){
+            return true;
+        }
+        adjCol = col;
+        adjRow = row - 1;
+        if (Model.checkSameVal(b, value, adjCol, adjRow)){
+            return true;
+        }
+        adjRow = row + 1;
+        if (Model.checkSameVal(b, value, adjCol, adjRow)){
+            return true;
+        }
+        return false;
+    }
+
+    /** Returns true if adjacent tile ad given position has the same value with param value. */
+    private static boolean checkSameVal(Board b, int value, int adjCol, int adjRow){
+        int size = b.size();
+        if (adjCol >= 0 && adjCol < size && adjRow >= 0 && adjRow < size){
+            Tile adjTile = b.tile(adjCol, adjRow);
+            if (adjTile != null){
+                return adjTile.value() == value;
+            }
+        }
         return false;
     }
 
