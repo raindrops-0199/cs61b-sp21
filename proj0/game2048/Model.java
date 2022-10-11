@@ -114,11 +114,62 @@ public class Model extends Observable {
         // for the tilt to the Side SIDE. If the board changed, set the
         // changed local variable to true.
 
+        board.setViewingPerspective(side);
+        changed = moveUp();
+        board.setViewingPerspective(Side.NORTH);
+
         checkGameOver();
         if (changed) {
             setChanged();
         }
         return changed;
+    }
+
+    private boolean moveUp(){
+        boolean res = false;
+        for (int i = 0; i < 4; i++) {
+            if (columnUp(i, 3)) {
+                res = true;
+            }
+        }
+        return res;
+    }
+
+    /** Method to move one column up. The param row is the top row in this iteration.*/
+    private boolean columnUp(int col, int row){
+        if (row == 0){
+            return false;
+        }
+        Tile tUp = board.tile(col, row);
+        int tDownRow = row - 1;
+        Tile tDown = board.tile(col, tDownRow);
+        while (tDown == null && tDownRow >= 0){
+            if (tDownRow == 0){
+                return false;
+            }
+            tDownRow--;
+            tDown = board.tile(col, tDownRow);
+        }
+        assert tDown != null;
+        if (tUp == null){
+            board.move(col, row, tDown);
+            columnUp(col, row);
+            return true;
+        }
+        else if (tUp.value() == tDown.value()){
+            board.move(col, row, tDown);
+            score += board.tile(col, row).value();
+            columnUp(col, row - 1);
+            return true;
+        }
+        else if (tDownRow != row - 1){
+            board.move(col, row - 1, tDown);
+            columnUp(col, row - 1);
+            return true;
+        }
+        else {
+            return columnUp(col, row - 1);
+        }
     }
 
     /** Checks if the game is over and sets the gameOver variable
