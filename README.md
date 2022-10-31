@@ -1,6 +1,6 @@
 # cs61b sp21
 
-This repo is my code for cs61b spring2021
+This repo is my solution for lab and project of cs61b spring2021
 
 ## Process
 
