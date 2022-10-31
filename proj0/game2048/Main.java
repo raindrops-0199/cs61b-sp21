@@ -30,7 +30,7 @@ public class Main {
         Random gen = new Random();
         if (options.contains("--seed")) {
             gen.setSeed(options.getLong("--seed"));
-        }
+        } 
 
         Model model = new Model(BOARD_SIZE);
 
