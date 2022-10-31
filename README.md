@@ -7,7 +7,7 @@ This repo is my solution for lab and project of cs61b spring2021
 - [x] lab1
 - [x] lab2
 - [x] proj0
-- [ ] lab3
+- [x] lab3
 - [ ] lab4
 - [ ] proj1
 - [ ] lab5
