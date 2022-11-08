@@ -2,6 +2,7 @@ package deque;
 
 import org.junit.Test;
 import static org.junit.Assert.*;
+import edu.princeton.cs.algs4.StdRandom;
 
 /** ArrayDeque test. */
 public class ArrayDequeTest {
@@ -86,5 +87,49 @@ public class ArrayDequeTest {
 
         assertNull(ald1.get(targetSize));
 
+    }
+
+    @Test
+    public void randomTest(){
+        ArrayDeque<Integer> ald = new ArrayDeque<Integer>();
+        LinkedListDeque<Integer> lld = new LinkedListDeque<Integer>();
+
+        int N = 50000;
+        for (int i = 0 ; i < N; i++){
+            int operationNumber = StdRandom.uniform(0, 6);
+
+            switch (operationNumber){
+                case 0:
+                    // addLast the same value to both lists
+                    int randVal1 = StdRandom.uniform(0, 1000);
+                    ald.addLast(randVal1);
+                    lld.addLast(randVal1);
+
+                case 1:
+                    // addFirst the same value to both lists
+                    int randVal2 = StdRandom.uniform(0, 100);
+                    ald.addFirst(randVal2);
+                    lld.addFirst(randVal2);
+
+                case 2:
+                    // assert if size are equal
+                    assertEquals(lld.size(), ald.size());
+
+                case 3:
+                    // assert if get random index value is equal
+                    if (ald.size() > 0 && lld.size() > 0) {
+                        int randIndex = StdRandom.uniform(0, ald.size());
+                        assertEquals(lld.get(randIndex), ald.get(randIndex));
+                    }
+
+                case 4:
+                    // assert if removeLast is equal
+                    assertEquals(lld.removeLast(), ald.removeLast());
+
+                case 5:
+                    // assert if removeFirst is equal
+                    assertEquals(lld.removeFirst(), ald.removeFirst());
+            }
+        }
     }
 }

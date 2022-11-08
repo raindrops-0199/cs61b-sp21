@@ -27,6 +27,8 @@ public class ArrayDeque<T> {
             current += 1;
         }
         items = newArray;
+        first = 0;
+        last = size == 0 ? 0 : current - 1;
     }
 
     /** Adds an item of type T to the front of the deque. */
@@ -81,7 +83,9 @@ public class ArrayDeque<T> {
         }
         T res = items[first];
         items[first] = null;
-        first = (first + 1) % items.length;
+        if (size != 1) {
+            first = (first + 1) % items.length;
+        }
         size -= 1;
         if (items.length > 8 && (double)size / items.length < usageFactor){
             resize(items.length / 2);
@@ -97,7 +101,9 @@ public class ArrayDeque<T> {
         }
         T res = items[last];
         items[last] = null;
-        last = (last + items.length - 1) % items.length;
+        if (size != 1) {
+            last = (last + items.length - 1) % items.length;
+        }
         size -= 1;
         if (items.length > 8 && (double)size / items.length < usageFactor){
             resize(items.length / 2);
