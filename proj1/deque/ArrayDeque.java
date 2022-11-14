@@ -4,6 +4,24 @@ import java.util.Iterator;
 
 /** Array is treated as circular */
 public class ArrayDeque<T> {
+
+    private class ArrayDequeIterator implements Iterator<T>{
+        private int pos = 0;
+        @Override
+        public boolean hasNext() {
+            return pos < size;
+        }
+
+        @Override
+        public T next() {
+            if (!hasNext()){
+                return null;
+            }
+            T res = get(pos);
+            pos += 1;
+            return res;
+        }
+    }
     private int  size;
     private T[] items;
     private int first;
@@ -121,10 +139,22 @@ public class ArrayDeque<T> {
     }
 
     public Iterator<T> iterator(){
-        return null;
+        return new ArrayDequeIterator();
     }
 
     public boolean equals(Object o){
+        if (o instanceof ArrayDeque){
+            ArrayDeque<T> target = (ArrayDeque<T>) o;
+            if (target.size() != size){
+                return false;
+            }
+            for (int i = 0; i < size; i++){
+                if (!target.get(i).equals(this.get(i))){
+                    return false;
+                }
+            }
+            return true;
+        }
         return false;
     }
 

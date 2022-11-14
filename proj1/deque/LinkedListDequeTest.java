@@ -2,6 +2,10 @@ package deque;
 
 import org.junit.Test;
 import static org.junit.Assert.*;
+import edu.princeton.cs.algs4.StdRandom;
+
+import java.util.Iterator;
+import java.util.Optional;
 
 
 /** Performs some basic linked list tests. */
@@ -117,5 +121,60 @@ public class LinkedListDequeTest {
         for (double i = 999999; i > 500000; i--) {
             assertEquals("Should have the same value", i, (double) lld1.removeLast(), 0.0);
         }
+    }
+
+    @Test
+    public void getTest(){
+        LinkedListDeque<Integer> lld1 = new LinkedListDeque<>();
+
+        for (int i = 0; i < 10000; i++) {
+            lld1.addLast(i);
+        }
+
+        int val = lld1.get(500);
+        assertEquals(500, val);
+
+        int N = 500;
+        for (int i = 0; i < N; i++){
+            int randIndex = StdRandom.uniform(0, 10000);
+            assertEquals(lld1.get(randIndex), lld1.getRecursive(randIndex));
+        }
+
+        assertEquals(lld1.get(10001), lld1.getRecursive(10001));
+    }
+
+    @Test
+    public void iteratorTest(){
+        LinkedListDeque<Integer> lld1 = new LinkedListDeque<>();
+
+        for (int i = 0; i < 1000; i++) {
+            lld1.addLast(i);
+        }
+
+        Iterator<Integer> iter = lld1.iterator();
+        int exp = 0;
+        while (iter.hasNext()){
+            int acture = iter.next();
+            assertEquals(exp, acture);
+            exp += 1;
+        }
+    }
+
+    @Test
+    public void equalTest(){
+        LinkedListDeque<Integer> lld1 = new LinkedListDeque<>();
+        LinkedListDeque<Integer> lld2 = new LinkedListDeque<>();
+
+        for (int i = 0; i < 10000; i++) {
+            lld1.addLast(i);
+            lld2.addLast(i);
+        }
+
+        assertTrue(lld1.equals(lld2));
+
+        assertFalse(lld1.equals(3));
+        LinkedListDeque<String> lld3 = new LinkedListDeque<>();
+        lld3.addLast("aaa");
+        assertFalse(lld1.equals(lld3));
     }
 }

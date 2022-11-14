@@ -6,12 +6,39 @@ import java.util.Iterator;
 public class LinkedListDeque<T> {
 
     public class Node{
-        public Node prev;
-        public Node next;
+        public Node prev = null;
+        public Node next = null;
         public T content;
 
         public Node(T con){
             content = con;
+        }
+
+        public T getRcursive(int index){
+            if (index == 0){
+                return content;
+            } else{
+                assert next != null;
+                return next.getRcursive(index - 1);
+            }
+        }
+    }
+
+    private class LinkedListDequeIterator implements Iterator<T> {
+        private int pos = 0;
+        @Override
+        public boolean hasNext() {
+            return pos < size;
+        }
+
+        @Override
+        public T next() {
+            if (!hasNext()){
+                return null;
+            }
+            T res = get(pos);
+            pos += 1;
+            return res;
         }
     }
 
@@ -106,11 +133,30 @@ public class LinkedListDeque<T> {
         return current.content;
     }
 
+    /** Same as get, but uses recursion. */
+    public T getRecursive(int index){
+        if (index >= size){
+            return null;
+        }
+        return sentinel.next.getRcursive(index);
+    }
     public Iterator<T> iterator(){
-        return null;
+        return new LinkedListDequeIterator();
     }
 
     public boolean equals(Object o){
+        if (o instanceof LinkedListDeque){
+            LinkedListDeque<T> target = (LinkedListDeque<T>) o;
+            if (target.size() != size){
+                return false;
+            }
+            for (int i = 0; i < size; i++){
+                if (!target.get(i).equals(this.get(i))){
+                    return false;
+                }
+            }
+            return true;
+        }
         return false;
     }
 
