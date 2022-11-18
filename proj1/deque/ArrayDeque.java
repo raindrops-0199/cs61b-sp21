@@ -3,7 +3,7 @@ package deque;
 import java.util.Iterator;
 
 /** Array is treated as circular */
-public class ArrayDeque<T> {
+public class ArrayDeque<T> implements Deque<T> {
 
     private class ArrayDequeIterator implements Iterator<T>{
         private int pos = 0;
@@ -71,11 +71,6 @@ public class ArrayDeque<T> {
         }
         items[last] = item;
         size += 1;
-    }
-
-    /** Returns true if deque is empty, false otherwise. */
-    public boolean isEmpty(){
-        return size == 0;
     }
 
     /** Returns the number of items in the deque. */

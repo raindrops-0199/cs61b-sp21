@@ -3,7 +3,7 @@ package deque;
 import java.util.Iterator;
 
 /** Implement deque with linked list.*/
-public class LinkedListDeque<T> {
+public class LinkedListDeque<T> implements Deque<T>{
 
     public class Node{
         public Node prev = null;
@@ -70,11 +70,6 @@ public class LinkedListDeque<T> {
         n.next = sentinel;
         sentinel.prev = n;
         size += 1;
-    }
-
-    /** Returns true if deque is empty, false otherwise. */
-    public boolean isEmpty(){
-        return size == 0;
     }
 
     /** Returns the number of items in the deque. */
