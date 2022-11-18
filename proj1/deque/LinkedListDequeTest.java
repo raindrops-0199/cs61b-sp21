@@ -11,11 +11,11 @@ import java.util.Optional;
 /** Performs some basic linked list tests. */
 public class LinkedListDequeTest {
 
-    @Test
     /** Adds a few things to the list, checking isEmpty() and size() are correct,
      * finally printing the results.
      *
      * && is the "and" operation. */
+    @Test
     public void addIsEmptySizeTest() {
 
         LinkedListDeque<String> lld1 = new LinkedListDeque<String>();
@@ -38,8 +38,8 @@ public class LinkedListDequeTest {
 		lld1.printDeque();
     }
 
-    @Test
     /** Adds an item, then removes an item, and ensures that dll is empty afterwards. */
+    @Test
     public void addRemoveTest() {
 
         LinkedListDeque<Integer> lld1 = new LinkedListDeque<Integer>();

@@ -64,7 +64,7 @@ public class ArrayDeque<T> implements Deque<T>, Iterable<T> {
         if (size == items.length) {
             resize(size * 2);
         }
-        if (size != 0){
+        if (size != 0) {
             last = (last + 1) % items.length;
         }
         items[last] = item;
@@ -93,14 +93,14 @@ public class ArrayDeque<T> implements Deque<T>, Iterable<T> {
             first = (first + 1) % items.length;
         }
         size -= 1;
-        if (items.length > 8 && (double)size / items.length < usageFactor) {
+        if (items.length > 8 && (double) size / items.length < usageFactor) {
             resize(items.length / 2);
         }
         return res;
     }
 
     public T removeLast() {
-        if (size == 0){
+        if (size == 0) {
             return null;
         }
         T res = items[last];
@@ -109,7 +109,7 @@ public class ArrayDeque<T> implements Deque<T>, Iterable<T> {
             last = (last + items.length - 1) % items.length;
         }
         size -= 1;
-        if (items.length > 8 && (double)size / items.length < usageFactor) {
+        if (items.length > 8 && (double) size / items.length < usageFactor) {
             resize(items.length / 2);
         }
         return res;
@@ -127,8 +127,8 @@ public class ArrayDeque<T> implements Deque<T>, Iterable<T> {
     }
 
     public boolean equals(Object o) {
-        if (o instanceof ArrayDeque) {
-            ArrayDeque<T> target = (ArrayDeque<T>) o;
+        if (o instanceof Deque) {
+            Deque<T> target = (Deque<T>) o;
             if (target.size() != size) {
                 return false;
             }

@@ -6,18 +6,18 @@ import java.util.Iterator;
 public class LinkedListDeque<T> implements Deque<T>, Iterable<T> {
 
     private class Node {
-        public Node prev = null;
-        public Node next = null;
-        public T content;
+        private Node prev = null;
+        private Node next = null;
+        private T content;
 
-        public Node(T con) {
+        Node(T con) {
             content = con;
         }
 
         public T getRcursive(int index) {
             if (index == 0) {
                 return content;
-            } else{
+            } else {
                 assert next != null;
                 return next.getRcursive(index - 1);
             }
@@ -85,7 +85,7 @@ public class LinkedListDeque<T> implements Deque<T>, Iterable<T> {
     }
 
     public T removeFirst() {
-        if (size == 0){
+        if (size == 0) {
             return null;
         }
         Node tmp = sentinel.next;
@@ -96,7 +96,7 @@ public class LinkedListDeque<T> implements Deque<T>, Iterable<T> {
     }
 
     public T removeLast() {
-        if (size == 0){
+        if (size == 0) {
             return null;
         }
         Node tmp = sentinel.prev;
@@ -119,7 +119,7 @@ public class LinkedListDeque<T> implements Deque<T>, Iterable<T> {
 
     /** Same as get, but uses recursion. */
     public T getRecursive(int index) {
-        if (index >= size){
+        if (index >= size) {
             return null;
         }
         return sentinel.next.getRcursive(index);
@@ -129,8 +129,8 @@ public class LinkedListDeque<T> implements Deque<T>, Iterable<T> {
     }
 
     public boolean equals(Object o) {
-        if (o instanceof LinkedListDeque) {
-            LinkedListDeque<T> target = (LinkedListDeque<T>) o;
+        if (o instanceof Deque) {
+            Deque<T> target = (Deque<T>) o;
             if (target.size() != size) {
                 return false;
             }
