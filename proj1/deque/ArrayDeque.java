@@ -22,11 +22,11 @@ public class ArrayDeque<T> {
             return res;
         }
     }
-    private int  size;
-    private T[] items;
-    private int first;
-    private int last;
-    private double usageFactor;
+    protected int  size;
+    protected T[] items;
+    protected int first;
+    protected int last;
+    protected double usageFactor;
 
     public ArrayDeque(){
         size = 0;
