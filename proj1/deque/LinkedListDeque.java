@@ -3,19 +3,19 @@ package deque;
 import java.util.Iterator;
 
 /** Implement deque with linked list.*/
-public class LinkedListDeque<T> implements Deque<T>{
+public class LinkedListDeque<T> implements Deque<T>, Iterable<T> {
 
-    public class Node{
+    private class Node {
         public Node prev = null;
         public Node next = null;
         public T content;
 
-        public Node(T con){
+        public Node(T con) {
             content = con;
         }
 
-        public T getRcursive(int index){
-            if (index == 0){
+        public T getRcursive(int index) {
+            if (index == 0) {
                 return content;
             } else{
                 assert next != null;
@@ -33,7 +33,7 @@ public class LinkedListDeque<T> implements Deque<T>{
 
         @Override
         public T next() {
-            if (!hasNext()){
+            if (!hasNext()) {
                 return null;
             }
             T res = get(pos);
@@ -45,14 +45,14 @@ public class LinkedListDeque<T> implements Deque<T>{
     private int size;
     private Node sentinel;
 
-    public LinkedListDeque(){
+    public LinkedListDeque() {
         sentinel = new Node(null);
         sentinel.prev = sentinel;
         sentinel.next = sentinel;
         size = 0;
     }
 
-    public void addFirst(T item){
+    public void addFirst(T item) {
         Node n = new Node(item);
         n.next = sentinel.next;
         sentinel.next.prev = n;
@@ -61,7 +61,7 @@ public class LinkedListDeque<T> implements Deque<T>{
         size += 1;
     }
 
-    public void addLast(T item){
+    public void addLast(T item) {
         Node n = new Node(item);
         sentinel.prev.next = n;
         n.prev = sentinel.prev;
@@ -70,13 +70,13 @@ public class LinkedListDeque<T> implements Deque<T>{
         size += 1;
     }
 
-    public int size(){
+    public int size() {
         return size;
     }
 
-    public void printDeque(){
+    public void printDeque() {
         Node current = sentinel.next;
-        while (current != sentinel){
+        while (current != sentinel) {
             System.out.print(current.content);
             System.out.print(" ");
             current = current.next;
@@ -84,7 +84,7 @@ public class LinkedListDeque<T> implements Deque<T>{
         System.out.println();
     }
 
-    public T removeFirst(){
+    public T removeFirst() {
         if (size == 0){
             return null;
         }
@@ -95,7 +95,7 @@ public class LinkedListDeque<T> implements Deque<T>{
         return tmp.content;
     }
 
-    public T removeLast(){
+    public T removeLast() {
         if (size == 0){
             return null;
         }
@@ -106,36 +106,36 @@ public class LinkedListDeque<T> implements Deque<T>{
         return tmp.content;
     }
 
-    public T get(int index){
-        if (index >= size){
+    public T get(int index) {
+        if (index >= size) {
             return null;
         }
         Node current = sentinel.next;
-        for (int i = 0; i < index; i++){
+        for (int i = 0; i < index; i++) {
             current = current.next;
         }
         return current.content;
     }
 
     /** Same as get, but uses recursion. */
-    public T getRecursive(int index){
+    public T getRecursive(int index) {
         if (index >= size){
             return null;
         }
         return sentinel.next.getRcursive(index);
     }
-    public Iterator<T> iterator(){
+    public Iterator<T> iterator() {
         return new LinkedListDequeIterator();
     }
 
-    public boolean equals(Object o){
-        if (o instanceof LinkedListDeque){
+    public boolean equals(Object o) {
+        if (o instanceof LinkedListDeque) {
             LinkedListDeque<T> target = (LinkedListDeque<T>) o;
-            if (target.size() != size){
+            if (target.size() != size) {
                 return false;
             }
-            for (int i = 0; i < size; i++){
-                if (!target.get(i).equals(this.get(i))){
+            for (int i = 0; i < size; i++) {
+                if (!target.get(i).equals(this.get(i))) {
                     return false;
                 }
             }
