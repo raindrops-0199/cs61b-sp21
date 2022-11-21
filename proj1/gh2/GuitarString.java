@@ -21,8 +21,8 @@ public class GuitarString {
         //       better accuracy, use the Math.round() function before casting.
         //       Your should initially fill your buffer array with zeros.
         buffer = new ArrayDeque<>();
-        int capacity = (int)Math.round(SR / frequency);
-        for (int i = 0; i < capacity; i++){
+        int capacity = (int) Math.round(SR / frequency);
+        for (int i = 0; i < capacity; i++) {
             buffer.addLast((double) 0);
         }
     }
@@ -38,7 +38,7 @@ public class GuitarString {
         //       other. This does not mean that you need to check that the numbers
         //       are different from each other. It means you should repeatedly call
         //       Math.random() - 0.5 to generate new random numbers for each array index.
-        for (int i = 0; i < buffer.size(); i++){
+        for (int i = 0; i < buffer.size(); i++) {
             double rand = Math.random() - 0.5;
             buffer.removeFirst();
             buffer.addLast(rand);
