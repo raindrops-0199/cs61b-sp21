@@ -126,7 +126,11 @@ public class ArrayDeque<T> implements Deque<T>, Iterable<T> {
         return new ArrayDequeIterator();
     }
 
+    @Override
     public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
         if (o instanceof Deque) {
             Deque<T> target = (Deque<T>) o;
             if (target.size() != size) {
