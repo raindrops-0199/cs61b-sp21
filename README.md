@@ -14,7 +14,7 @@ course website at https://sp21.datastructur.es/
 - [x] lab3 [Randomizing Testing and Timing](https://sp21.datastructur.es/materials/lab/lab3/lab3)
 - [x] lab4 [Git and Debugging](https://sp21.datastructur.es/materials/lab/lab4/lab4)
 - [x] proj1 [Data Structures](https://sp21.datastructur.es/materials/proj/proj1/proj1)
-- [ ] lab6 [Project 2 Getting Started](https://sp21.datastructur.es/materials/lab/lab6/lab6)
+- [x] lab6 [Project 2 Getting Started](https://sp21.datastructur.es/materials/lab/lab6/lab6)
 - [ ] proj2 [Gitlet](https://sp21.datastructur.es/materials/proj/proj2/proj2)
 - [ ] lab7 [BSTMap](https://sp21.datastructur.es/materials/lab/lab7/lab7)
 - [ ] lab8 [HashMap](https://sp21.datastructur.es/materials/lab/lab8/lab8)
