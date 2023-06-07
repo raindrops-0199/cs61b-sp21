@@ -1,13 +1,13 @@
-package gitlet;
+package gitlet.utils;
 
 import java.io.File;
 
 /** A debugging class whose main program may be invoked as follows:
- *      java gitlet.DumpObj FILE...
+ *      java gitlet.utils.DumpObj FILE...
  *  where each FILE is a file produced by Utils.writeObject (or any file
  *  containing a serialized object).  This will simply read FILE,
  *  deserialize it, and call the dump method on the resulting Object.
- *  The object must implement the gitlet.Dumpable interface for this
+ *  The object must implement the gitlet.utils.Dumpable interface for this
  *  to work.  For example, you might define your class like this:
  *
  *        import java.io.Serializable;

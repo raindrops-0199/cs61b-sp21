@@ -1,7 +1,7 @@
 package gitlet;
 
 import java.io.File;
-import static gitlet.Utils.*;
+import static gitlet.utils.Utils.*;
 
 // TODO: any imports you need here
 
@@ -9,7 +9,7 @@ import static gitlet.Utils.*;
  *  TODO: It's a good idea to give a description here of what else this Class
  *  does at a high level.
  *
- *  @author TODO
+ *  @author jason
  */
 public class Repository {
     /**
