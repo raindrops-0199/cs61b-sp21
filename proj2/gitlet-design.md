@@ -2,7 +2,7 @@
 
 # 1 .gitlet directory structure 
 
-```shell
+```
 .
 ├── HEAD // current HEAD pointer "ref: refs/heads/main" since there            // won't have detached HEAD state,the content won't be SHA-1
 ├── index // Staging Area
@@ -198,88 +198,86 @@ public class Repository {
 
 #  3 Commands Implementation
 
-- **init**
+## init
 
-  create .gitlet directory and create all necessary files and directories in .gitlet directory. Default branch is master.
+create .gitlet directory and create all necessary files and directories in .gitlet directory. Default branch is master.
 
-- **add**
+## add
 
-  if already in stage area: 
+if already in stage area: 
 
-  - if hash is same: do nothing
-  - not same: overwrite previous hash and make a new blob
+- if hash is same: do nothing
+- not same: overwrite previous hash and make a new blob
 
-  else:
+else:
 
-  - add hash to stage area and make a new blob.
+- add hash to stage area and make a new blob.
 
-  remember: two different file name may have same content making them have same hash. In this case, they refer to one blob. So when making a blob, if the same blob already exists, don't have to make a new one.
+remember: two different file name may have same content making them have same hash. In this case, they refer to one blob. So when making a blob, if the same blob already exists, don't have to make a new one.
 
-- **commit**
+## commit
 
-  Make a new commit with message and author, date, etc. Save the index Tree into objects and get its hash.
+Make a new commit with message and author, date, etc. Save the index Tree into objects and get its hash.
 
-  Update HEAD hash and branch hash
+Update HEAD hash and branch hash
 
-- **rm**
+## rm
 
-  - file not tracked in current commit and staged: remove it from staging area.
-  - file tracked: remove it from directory and staging area.
+- file not tracked in current commit and staged: remove it from staging area.
+- file tracked: remove it from directory and staging area.
 
-- **log**
+## log
 
-  from HEAD-branch hash, iterate over all commit to first commit, following the first parent commit links.
+from HEAD-branch hash, iterate over all commit to first commit, following the first parent commit links.
 
-- **global-log**
+## global-log
 
-  travel through all objects, if is commit, print it out.
+travel through all objects, if is commit, print it out.
 
-- **find**
+## find
 
-  travel through all objects, if is commit and has same commit message, print it out.
+travel through all objects, if is commit and has same commit message, print it out.
 
-- **status**
+## status
 
-  1. Get the files of stage by index file, and compare with the last committed tree
-     - More files: stage for addition
-     - Less files: stage for removal
-  2. Compare with the working directory again
-     - Files in stage but not staged: modified but not staged
-     - Files not in stage: untracked files
+1. Get the files of stage by index file, and compare with the last committed tree
+   - More files: stage for addition
+   - Less files: stage for removal
+2. Compare with the working directory again
+   - Files in stage but not staged: modified but not staged
+   - Files not in stage: untracked files
 
-- **checkout**
+## checkout
 
-  1. Find HEAD-branch commit and find tree then find the needed file. Overwrite the current one. 
+1. Find HEAD-branch commit and find tree then find the needed file. Overwrite the current one. 
 
-  2. Find commit with given id then get the tree then find the file. Overwrite the current one.
+2. Find commit with given id then get the tree then find the file. Overwrite the current one.
 
-  3. Find the branch hash and find all files in that commit. Take them to working derectory and overwrite the versions of the files that are already there if they exist. Delete files that are tracked in the current branch but are not present in the checked-out branch. Untracked files which won'e be overwritten remains here. Staged for addition or removal are cleaned.
+3. Find the branch hash and find all files in that commit. Take them to working derectory and overwrite the versions of the files that are already there if they exist. Delete files that are tracked in the current branch but are not present in the checked-out branch. Untracked files which won'e be overwritten remains here. Staged for addition or removal are cleaned.
 
-     Change HEAD to new branch.
+   Change HEAD to new branch.
 
-- **branch**
+## branch
 
-  Create a new branch thich point to current commit. Add it to refs/heads folder. Do not switch branch.
+Create a new branch thich point to current commit. Add it to refs/heads folder. Do not switch branch.
 
-- **rm-branch**
+## rm-branch
 
-  Remove branch. Don't change any commits.
+Remove branch. Don't change any commits.
 
-- **reset**
+## reset
 
-  Checkout to that commit and moves the current branch’s head to that commit node.
+Checkout to that commit and moves the current branch’s head to that commit node.
 
-- **merge**
+## merge
 
-  split point: latest *common ancestor*
+split point: latest *common ancestor*
 
-  How to find: using a BFS to find all ancestors of current branch(commit), puts them into a set. Then starts another BFS from another branch node, and determines if the visited node is in the set. If it is, then it's the common ancestor. The first one found is the latest.
+How to find: using a BFS to find all ancestors of current branch(commit), puts them into a set. Then starts another BFS from another branch node, and determines if the visited node is in the set. If it is, then it's the common ancestor. The first one found is the latest.
 
-  - if given branch is in the set: do nothing
-  - if latest common ancestor is current branch: fast forward(checkout)
-  - else: merge
-
-## 
+- if given branch is in the set: do nothing
+- if latest common ancestor is current branch: fast forward(checkout)
+- else: merge
 
 # 4 Persistence
 
@@ -289,7 +287,9 @@ Try to use some design patterns in this project
 
 ## 5.1 Simple Factory Pattern
 
-**ObjectFactory**
+Use a factoey to create objects. Hides the details from clint.
+
+### ObjectFactory
 
 A factory that create LooseObjects. Can be used by Repository class.
 
@@ -304,6 +304,8 @@ public class ObjectFactory {
 ```
 
 ## 5.2 Iterator Pattern
+
+Make Tree object iterable so the clint can easily iterate over it to find files or so.
 
 Add Iterable<> and add a private Iterator class to Tree class.
 
@@ -334,7 +336,9 @@ public class Tree extends LooseObject implements Iterable<FileD> {
 
 ## 5.3 Command Pattern
 
-**Command**
+Implement each command as a command class that implements Command interface. This can make it easy for Repository class to execute a command. This can also make adding command easier.
+
+### command interface
 
 ```java
 public interface Command {
@@ -343,7 +347,7 @@ public interface Command {
 }
 ```
 
-**ConcreteCommand**
+### ConcreteCommand
 
 Then implement every command as a class that implements Command interface
 
@@ -359,7 +363,7 @@ public class initCommand implements Command {
 }
 ```
 
-**Invoker**
+### Invoker
 
 In `Repository`class add a `setCommand` method and a `command` attribute.
 
