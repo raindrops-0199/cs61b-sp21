@@ -67,7 +67,7 @@ public abstract class LooseObject implements Serializable{
     public String getType() {}
     public String getHash() {}
     
-    public abstract void writeLooseObject()；
+    public abstract void writeLooseObject();
     public abstract String computeHash();
     public abstract String toString();
     
@@ -81,11 +81,11 @@ public class Commit extends LooseObject {
     private String type;
 	private String treeHash;
     private String parentHash;
-    private String auther;
+    private String author;
     private String date;
     private String message;
     
-    public Commit(Date date, String message, String auther, String parentHash, String treeHash) {}
+    public Commit(Date date, String message, String author, String parentHash, String treeHash) {}
     
     @Override
     public void writeLooseObject() {}
@@ -145,7 +145,7 @@ public class Tree extends LooseObject {
     private String type;
     private TreeMap<String, FileD> objTreeMap;
     
-    public Tree(List<String> fileNames) {}
+    public Tree(ArrayList<String> fileNames) {}
     
     @Override
     public void writeLooseObject() {}
@@ -313,7 +313,7 @@ Add Iterable<> and add a private Iterator class to Tree class.
 public class Tree extends LooseObject implements Iterable<FileD> {
     // new things
     public Iterator<FileD> iterator() {
-        return new TreeIterator;
+        return new TreeIterator();
     }
     
     private class TreeIterator implements Iterator<FileD> {
@@ -326,7 +326,7 @@ public class Tree extends LooseObject implements Iterable<FileD> {
             return nameIter.hasNext();
         }
         @Override
-        public FillD next() {
+        public FileD next() {
             String name = nameIter.next();
             return objTreeMap.get(name);
         }

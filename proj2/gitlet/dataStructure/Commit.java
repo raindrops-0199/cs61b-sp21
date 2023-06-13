@@ -2,21 +2,39 @@ package gitlet.dataStructure;
 
 // TODO: any imports you need here
 
+import java.util.Date;
+
 /** Represents a gitlet commit object.
  *
  *  @author jason
  */
 public class Commit extends LooseObject{
-    /**
-     * TODO: add instance variables here.
-     *
-     * List all instance variables of the Commit class here with a useful
-     * comment above them describing what that variable represents and how that
-     * variable is used. We've provided one example for `message`.
-     */
-
-    /** The message of this Commit. */
+    /** type is "commit" */
+    private String type;
+    /** the hash of commit tree */
+    private String treeHash;
+    /** hash of parent commit */
+    private String parentHash;
+    /** author of the commit */
+    private String author;
+    /** date info about the commit */
+    private String date;
+    /** commit message */
     private String message;
 
-    /* TODO: fill in the rest of this class. */
+    /** constructor of a commit*/
+    public Commit(Date date, String message, String author, String parentHash, String treeHash) {}
+
+    @Override
+    public void writeLooseObject() {}
+
+    @Override
+    public String computeHash() {
+        return "";
+    }
+
+    @Override
+    public String toString() {
+        return "";
+    }
 }
