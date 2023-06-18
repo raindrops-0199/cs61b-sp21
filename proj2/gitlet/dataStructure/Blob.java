@@ -1,7 +1,10 @@
 package gitlet.dataStructure;
 
-/** A Blob represents a regular file created by user.
+/**
+ * A Blob represents a regular file created by user.
+ *
  * @author jason
+ * TODO
  */
 public class Blob extends LooseObject{
     private String type;

@@ -4,12 +4,16 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.TreeMap;
 
-/** A Tree class represents a directory
- *  There's a use of Iterator Pattern.
- *  Implements Iterable interface to make Tree iterable, which is
- *  useful when iterate through Tree object to find a file or something.
+/**
+ * A Tree class represents a directory
+ * <p>
+ * There's a use of Iterator Pattern.
+ * <p>
+ * Implements Iterable interface to make Tree iterable, which is
+ * useful when iterate through Tree object to find a file or something.
  *
- *  @author jason
+ * @author jason
+ * TODO
  */
 public class Tree extends LooseObject implements Iterable<FileD> {
     private String type;

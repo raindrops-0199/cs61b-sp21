@@ -4,9 +4,11 @@ package gitlet.dataStructure;
 
 import java.util.Date;
 
-/** Represents a gitlet commit object.
+/**
+ * Represents a gitlet commit object.
  *
- *  @author jason
+ * @author jason
+ * TODO
  */
 public class Commit extends LooseObject{
     /** type is "commit" */

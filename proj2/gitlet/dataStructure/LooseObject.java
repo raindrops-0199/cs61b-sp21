@@ -3,10 +3,11 @@ package gitlet.dataStructure;
 import java.io.Serializable;
 
 /**
- * An abstract class of LooseObjects in git
+ * An abstract class of LooseObjects in git.
  * A LooseObject can be Commit, Blob and Tree.
  *
  * @author jason
+ * TODO
  */
 public abstract class LooseObject implements Serializable {
     /**
@@ -15,14 +16,11 @@ public abstract class LooseObject implements Serializable {
      * type is set by specific object class
      */
     private String type;
-    /**
-     * stores the hash of the loose object
-     */
+    /** stores the hash of the loose object */
     private String hash;
 
     /**
      * this method is used to get the type of object
-     *
      * @return the type of loose object
      */
     public String getType() {

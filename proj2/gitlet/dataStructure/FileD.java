@@ -2,9 +2,12 @@ package gitlet.dataStructure;
 
 import java.io.Serializable;
 
-/** A file descriptor class.
- *  Will mainly be used in Tree class.
+/**
+ * A file descriptor class.
+ * Will mainly be used in Tree class.
+ *
  * @author jason
+ * TODO
  */
 public class FileD implements Serializable {
     private String mode;

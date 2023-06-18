@@ -2,11 +2,14 @@ package gitlet.dataStructure;
 
 import java.util.ArrayList;
 
-/** Using of Simple Factory Pattern
- *  This factory is used to create loose objects.
- *  A loose object may be a commit, blob or tree.
+/**
+ * Using of Simple Factory Pattern
+ * <p>
+ * This factory is used to create loose objects.
+ * A loose object may be a commit, blob or tree.
  *
- *  @author jason
+ * @author jason
+ * TODO
  */
 public class ObjectFactory {
 

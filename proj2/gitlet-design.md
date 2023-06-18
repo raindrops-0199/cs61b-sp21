@@ -365,10 +365,32 @@ public class initCommand implements Command {
 
 ### Invoker
 
-In `Repository`class add a `setCommand` method and a `command` attribute.
+In `Repository`class add these thing:
+
+```java
+public class Repository {
+    Command command;
+    
+    public void setCommand(String command, String[] args) {
+        ... //make a command
+        this.command = newCommand;
+        this.command.setParameter(args);
+    }
+    
+    // or setCommand(Command command, String[] args) if using enum
+    
+    public void invoke() {
+        command.execute();
+    }
+}
+```
+
+Thinking about using an `enum` in main to represent `String command` to `command class` so we don't have to use a lot of `if else` in the code.
+
+## 5.4 Observer Pattern
 
 
 
 > Author: jason
 >
-> Last edited at: 2023.6.7
+> Last edited at: 2023.6.18

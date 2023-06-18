@@ -1,29 +1,34 @@
 package gitlet;
 
+import gitlet.command.Command;
+
 import java.io.File;
 import static gitlet.utils.Utils.*;
 
 // TODO: any imports you need here
 
-/** Represents a gitlet repository.
- *  TODO: It's a good idea to give a description here of what else this Class
- *  does at a high level.
+/**
+ * Repository is the invoker class of specific command.
  *
- *  @author jason
+ * @author jason
+ * TODO
  */
 public class Repository {
-    /**
-     * TODO: add instance variables here.
-     *
-     * List all instance variables of the Repository class here with a useful
-     * comment above them describing what that variable represents and how that
-     * variable is used. We've provided two examples for you.
-     */
+    /** the command to execute */
+    Command command;
 
     /** The current working directory. */
     public static final File CWD = new File(System.getProperty("user.dir"));
     /** The .gitlet directory. */
     public static final File GITLET_DIR = join(CWD, ".gitlet");
 
-    /* TODO: fill in the rest of this class. */
+
+    public void setCommand(Command command, String[] args) {
+        this.command = command;
+        this.command.setParameter(args);
+    }
+
+    public void invoke() {
+        command.execute();
+    }
 }
