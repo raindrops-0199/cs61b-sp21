@@ -51,8 +51,4 @@ public abstract class LooseObject implements Serializable {
      * @return content of object as String
      */
     public abstract String toString();
-
-    public int a() {
-        return 1;
-    }
 }
