@@ -25,7 +25,7 @@ public class Commit extends LooseObject{
 
     /** constructor of a commit*/
     public Commit(Date date) {
-        this.type = "commit";
+        this.type = ObjectType.COMMIT;
         this.date = date.toString();
     }
 
@@ -41,6 +41,10 @@ public class Commit extends LooseObject{
         this.parentHash.add(hash);
     }
 
+    /**
+     * Adding treeHash, parentHashes, date and message together then compute sha1
+     * @return sha1 of commit contents
+     */
     @Override
     public String computeHash() {
         List<String> contents = new ArrayList<>();
@@ -79,6 +83,12 @@ public class Commit extends LooseObject{
         return lines2String(lines);
     }
 
+    /**
+     * helper function.
+     * convert Lise lines to one String.
+     * @param lines a List of lines
+     * @return one string
+     */
     private String lines2String(List<String> lines) {
         StringBuilder res = new StringBuilder();
         for (String line : lines) {

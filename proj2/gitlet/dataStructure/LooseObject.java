@@ -18,7 +18,7 @@ public abstract class LooseObject implements Serializable {
      * the field has only three possible values: "blob", "commit", "tree"
      * type is set by specific object class
      */
-    protected String type;
+    protected ObjectType type;
     /** stores the hash of the loose object */
     protected String hash;
 
@@ -26,7 +26,7 @@ public abstract class LooseObject implements Serializable {
      * this method is used to get the type of object
      * @return the type of loose object
      */
-    public String getType() {
+    public ObjectType getType() {
         return type;
     }
 
@@ -57,3 +57,4 @@ public abstract class LooseObject implements Serializable {
      */
     public abstract String toString();
 }
+

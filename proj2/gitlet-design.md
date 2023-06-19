@@ -60,11 +60,19 @@
 abstract class. When deserialized, object should be deserialized to LooseObject and can directly use related method or check type.
 
 ```java
+public enum ObjectType {
+    COMMIT, BLOB, TREE
+}
+```
+
+
+
+```java
 public abstract class LooseObject implements Serializable{
-    protected String type;
+    protected ObjectType type;
     protected String hash;
     
-    public String getType() {}
+    public ObjectType getType() {}
     // public String getHash() {}
     
     public void writeLooseObject(File file) {
