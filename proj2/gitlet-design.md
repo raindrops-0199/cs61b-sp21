@@ -61,13 +61,15 @@ abstract class. When deserialized, object should be deserialized to LooseObject 
 
 ```java
 public abstract class LooseObject implements Serializable{
-    private String type;
-    private String hash;
+    protected String type;
+    protected String hash;
     
     public String getType() {}
-    public String getHash() {}
+    // public String getHash() {}
     
-    public abstract void writeLooseObject();
+    public void writeLooseObject(File file) {
+        Utils.writeObject(file, this);
+    }
     public abstract String computeHash();
     public abstract String toString();
     
@@ -78,17 +80,16 @@ public abstract class LooseObject implements Serializable{
 
 ```java
 public class Commit extends LooseObject {
-    private String type;
 	private String treeHash;
-    private String parentHash;
-    private String author;
+    private ArrayList<String> parentHash;
     private String date;
     private String message;
     
-    public Commit(Date date, String message, String author, String parentHash, String treeHash) {}
+    public Commit(Date date) {}
     
-    @Override
-    public void writeLooseObject() {}
+    public void setMessage(String message) {}
+    public void setTreeHash(String treeHash) {}
+    public void addParentHash(String hash) {}
     
     @Override
     public String computeHash() {}
@@ -102,7 +103,6 @@ public class Commit extends LooseObject {
 
 ```java
 public class Blob extends LooseObject {
-    private String type;
     private byte[] content;
     //private String content;
     
@@ -142,7 +142,6 @@ public class FileD implements Serializable{
 
 ```java
 public class Tree extends LooseObject {
-    private String type;
     private TreeMap<String, FileD> objTreeMap;
     
     public Tree(ArrayList<String> fileNames) {}
@@ -163,8 +162,19 @@ public class Tree extends LooseObject {
 ### Stage
 
 ```java
+public interface Stage {
+    public static LooseObject getAddition();
+    public static LooseObject getRemoval();
+    public static LooseObject getmodified();
+    public static LooseObject getUntracked();
+}
+```
+
+
+
+```java
 // reprensent index file in .gitlet directory
-public class Index {
+public class Index implements Stage{
     // stage content
     private static Tree stage;
     
@@ -387,7 +397,28 @@ public class Repository {
 
 Thinking about using an `enum` in main to represent `String command` to `command class` so we don't have to use a lot of `if else` in the code.
 
-## 5.4 Observer Pattern
+## 5.4 Singleton Pattern
+
+### Logger
+
+```java
+public class Logger {
+    private Logger() {}
+    
+    private static class LoggerHolder {
+        private static final Logger instance = new Logger()
+    }
+    
+    public static Logger getInstance() {
+        return LoggerHolder.instance;
+    }
+    
+    public void writeLog() {}
+    // public void readLog() {}
+}
+```
+
+
 
 
 
