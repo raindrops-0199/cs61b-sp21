@@ -1,8 +1,11 @@
 package gitlet.dataStructure;
 
-// TODO: any imports you need here
+import gitlet.utils.Utils;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
+
 
 /**
  * Represents a gitlet commit object.
@@ -11,32 +14,78 @@ import java.util.Date;
  * TODO
  */
 public class Commit extends LooseObject{
-    /** type is "commit" */
-    private String type;
     /** the hash of commit tree */
     private String treeHash;
     /** hash of parent commit */
-    private String parentHash;
-    /** author of the commit */
-    private String author;
+    private final List<String> parentHash = new ArrayList<>();
     /** date info about the commit */
-    private String date;
+    private final String date;
     /** commit message */
     private String message;
 
     /** constructor of a commit*/
-    public Commit(Date date, String message, String author, String parentHash, String treeHash) {}
+    public Commit(Date date) {
+        this.type = "commit";
+        this.date = date.toString();
+    }
 
-    @Override
-    public void writeLooseObject() {}
+    public void setMessage(String message) {
+        this.message = message;
+    }
+
+    public void setTreeHash(String treeHash) {
+        this.treeHash = treeHash;
+    }
+
+    public void addParentHash(String hash) {
+        this.parentHash.add(hash);
+    }
 
     @Override
     public String computeHash() {
-        return "";
+        List<String> contents = new ArrayList<>();
+        contents.add(treeHash);
+        contents.addAll(parentHash);
+        contents.add(date);
+        contents.add(message);
+        this.hash = Utils.sha1(contents);
+        return this.hash;
     }
 
     @Override
     public String toString() {
-        return "";
+        List<String> lines = new ArrayList<>();
+        lines.add("tree " + this.treeHash);
+        for (String parent : parentHash) {
+            lines.add("parent " + parent);
+        }
+        lines.add("Date " + this.date);
+        lines.add(this.message);
+        return lines2String(lines);
+    }
+
+    /**
+     * message printed to git log command
+     * @return String
+     */
+    public String toLog() {
+        List<String> lines = new ArrayList<>();
+        lines.add("commit " + this.hash);
+        if (parentHash.size() > 1) {
+            lines.add("Merge: " + parentHash.get(0).substring(0, 7) + parentHash.get(1).substring(0, 7));
+        }
+        lines.add("Date: " + this.date);
+        lines.add(this.message);
+        return lines2String(lines);
+    }
+
+    private String lines2String(List<String> lines) {
+        StringBuilder res = new StringBuilder();
+        for (String line : lines) {
+            res.append(line);
+            res.append(System.lineSeparator());
+        }
+        res.append(System.lineSeparator());
+        return res.toString();
     }
 }

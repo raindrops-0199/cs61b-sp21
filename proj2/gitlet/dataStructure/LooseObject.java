@@ -1,5 +1,8 @@
 package gitlet.dataStructure;
 
+import gitlet.utils.Utils;
+
+import java.io.File;
 import java.io.Serializable;
 
 /**
@@ -15,9 +18,9 @@ public abstract class LooseObject implements Serializable {
      * the field has only three possible values: "blob", "commit", "tree"
      * type is set by specific object class
      */
-    private String type;
+    protected String type;
     /** stores the hash of the loose object */
-    private String hash;
+    protected String hash;
 
     /**
      * this method is used to get the type of object
@@ -38,7 +41,9 @@ public abstract class LooseObject implements Serializable {
     /**
      * write object to disk
      */
-    public abstract void writeLooseObject();
+    public void writeLooseObject(File file) {
+        Utils.writeObject(file, this);
+    }
 
     /**
      * compute the SHA-1 hash of the object
