@@ -1,5 +1,8 @@
 package gitlet.dataStructure;
 
+import gitlet.utils.Utils;
+
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.TreeMap;
@@ -16,25 +19,54 @@ import java.util.TreeMap;
  * TODO
  */
 public class Tree extends LooseObject implements Iterable<FileD> {
-    private String type;
-    private TreeMap<String, FileD> objTreeMap;
+    private final TreeMap<String, FileD> objTreeMap = new TreeMap<>();
 
-    public Tree(ArrayList<String> fileNames) {}
+    // public Tree(ArrayList<String> fileNames) {}
 
-    @Override
-    public void writeLooseObject() {}
+    public Tree(){
+        this.type = ObjectType.TREE;
 
-    @Override
+    }    @Override
     public String computeHash() {
-        return "";
+        return Utils.sha1(toString());
     }
 
+    /**
+     * Convert contents of objTreeMap to String.
+     * Convert in order of file name;
+     * @return contents of objTreeMap
+     * TODO
+     */
     @Override
     public String toString() {
-        return "";
+        StringBuilder stringBuilder = new StringBuilder();
+        for (FileD fd : objTreeMap.values()) {
+            stringBuilder.append(fd.toString());
+            stringBuilder.append(System.lineSeparator());
+        }
+        return stringBuilder.toString();
     }
 
-    public void addObj(String fileName) {}
+    /**
+     * Add blob or tree to objTreeMap.
+     * @param filePath path of file/tree(directory)
+     * @param fileHash hash of file/tree
+     * @throws IOException IOException
+     */
+    public void addObj(String filePath, String fileHash) throws IOException {
+        FileD fd = new FileD(filePath, fileHash);
+        objTreeMap.put(fd.getFileName(), fd);
+    }
+
+    /**
+     * Add blob to objTreeMap
+     * @param blob a Blob object
+     * @throws IOException IOException
+     */
+    public void addObj(Blob blob) throws IOException {
+        FileD fd = new FileD(blob);
+        objTreeMap.put(fd.getFileName(), fd);
+    }
 
     public Iterator<FileD> iterator() {
         return new TreeIterator();

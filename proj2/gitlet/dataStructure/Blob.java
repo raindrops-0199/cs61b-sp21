@@ -1,29 +1,38 @@
 package gitlet.dataStructure;
 
+import gitlet.utils.Utils;
+
+import java.io.File;
+import java.nio.charset.StandardCharsets;
+
 /**
  * A Blob represents a regular file created by user.
  *
  * @author jason
- * TODO
  */
 public class Blob extends LooseObject{
-    private String type;
-    private byte[] content;
+    private final byte[] content;
+    private final String path;
     //private String content;
 
-    public Blob(String path) {}
-
-    @Override
-    public void writeLooseObject() {}
+    public Blob(String path) {
+        this.path = path;
+        this.type = ObjectType.BLOB;
+        File f = Utils.join(path);
+        this.content = Utils.readContents(f);
+    }
 
     @Override
     public String computeHash() {
-        return "";
+        return Utils.sha1((Object) content);
     }
 
     @Override
     public String toString() {
-        return "";
+        return new String(this.content, StandardCharsets.UTF_8);
     }
 
+    public String getPath() {
+        return path;
+    }
 }

@@ -11,7 +11,6 @@ import java.util.List;
  * Represents a gitlet commit object.
  *
  * @author jason
- * TODO
  */
 public class Commit extends LooseObject{
     /** the hash of commit tree */

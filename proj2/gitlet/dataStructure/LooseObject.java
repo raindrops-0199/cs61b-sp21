@@ -10,7 +10,6 @@ import java.io.Serializable;
  * A LooseObject can be Commit, Blob and Tree.
  *
  * @author jason
- * TODO
  */
 public abstract class LooseObject implements Serializable {
     /**

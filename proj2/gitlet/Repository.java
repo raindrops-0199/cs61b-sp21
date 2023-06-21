@@ -5,8 +5,6 @@ import gitlet.command.Command;
 import java.io.File;
 import static gitlet.utils.Utils.*;
 
-// TODO: any imports you need here
-
 /**
  * Repository is the invoker class of specific command.
  *
