@@ -29,7 +29,7 @@ import java.util.List;
 public class Utils {
 
     /** The length of a complete SHA-1 UID as a hexadecimal numeral. */
-    static final int UID_LENGTH = 40;
+    public static final int UID_LENGTH = 40;
 
     /* SHA-1 HASH VALUES. */
 
