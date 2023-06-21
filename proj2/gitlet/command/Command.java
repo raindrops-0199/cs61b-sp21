@@ -1,5 +1,7 @@
 package gitlet.command;
 
+import java.io.IOException;
+
 /**
  * Use of Command Pattern.
  * <p>
@@ -13,5 +15,5 @@ public interface Command {
     void setParameter(String[] args);
 
     /** execute command */
-    void execute();
+    void execute() throws IOException;
 }

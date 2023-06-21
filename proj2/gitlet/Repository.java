@@ -3,6 +3,8 @@ package gitlet;
 import gitlet.command.Command;
 
 import java.io.File;
+import java.io.IOException;
+
 import static gitlet.utils.Utils.*;
 
 /**
@@ -13,7 +15,7 @@ import static gitlet.utils.Utils.*;
  */
 public class Repository {
     /** the command to execute */
-    Command command;
+    private static Command command;
 
     /** The current working directory. */
     public static final File CWD = new File(System.getProperty("user.dir"));
@@ -21,12 +23,12 @@ public class Repository {
     public static final File GITLET_DIR = join(CWD, ".gitlet");
 
 
-    public void setCommand(Command command, String[] args) {
-        this.command = command;
-        this.command.setParameter(args);
+    public static void setCommand(Command command, String[] args) {
+        Repository.command = command;
+        Repository.command.setParameter(args);
     }
 
-    public void invoke() {
+    public static void invoke() throws IOException {
         command.execute();
     }
 }
