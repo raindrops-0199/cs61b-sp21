@@ -22,29 +22,29 @@ public class ObjectFactory {
     public static LooseObject create(ObjectType type, String[] args) {
         LooseObject looseObject = null;
         switch (type) {
-            case COMMIT -> {
+            case COMMIT:
                 looseObject = createCommit(args);
-            }
-            case BLOB -> {
+                break;
+            case BLOB:
                 looseObject = createBlob(args);
-            }
-            case TREE -> {
+                break;
+            case TREE:
                 looseObject = createTree(args);
-            }
+                break;
         }
         return looseObject;
     }
     /**
      * make a commit object
-     * @param args args follow order: message, tree hash, parent hash, (parent2 hash).
+     * @param args args follow order: date, message, tree hash, parent hash, (parent2 hash).
      * @return a new commit object
      */
     private static Commit createCommit(String[] args) {
-        Commit commit = new Commit(new Date());
-        commit.setMessage(args[0]);
-        commit.setTreeHash(args[1]);
-        commit.addParentHash(args[2]);
-        for (int i = 3; i < args.length; i++) {
+        Commit commit = new Commit(args[0]);
+        commit.setMessage(args[1]);
+        commit.setTreeHash(args[2]);
+        commit.addParentHash(args[3]);
+        for (int i = 4; i < args.length; i++) {
             commit.addParentHash(args[i]);
         }
         return commit;

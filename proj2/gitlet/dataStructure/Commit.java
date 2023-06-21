@@ -23,9 +23,9 @@ public class Commit extends LooseObject{
     private String message;
 
     /** constructor of a commit*/
-    public Commit(Date date) {
+    public Commit(String date) {
         this.type = ObjectType.COMMIT;
-        this.date = date.toString();
+        this.date = date;
     }
 
     public void setMessage(String message) {

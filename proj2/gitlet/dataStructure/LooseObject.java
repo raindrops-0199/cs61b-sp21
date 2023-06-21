@@ -40,8 +40,17 @@ public abstract class LooseObject implements Serializable {
     /**
      * write object to disk
      */
-    public void writeLooseObject(File file) {
-        Utils.writeObject(file, this);
+    public void writeLooseObject() {
+        File dir = Utils.join(hash.substring(0, 2));
+        if (!dir.exists()) {
+            if (!dir.mkdir()) {
+                System.err.println("Create directory failed");
+            }
+        }
+        File file = Utils.join(dir, hash.substring(2));
+        if (!file.exists()) {
+            Utils.writeObject(file, this);
+        }
     }
 
     /**
