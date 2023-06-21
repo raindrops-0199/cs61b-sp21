@@ -3,6 +3,7 @@ package gitlet.command;
 import gitlet.dataStructure.LooseObject;
 import gitlet.dataStructure.ObjectFactory;
 import gitlet.dataStructure.ObjectType;
+import gitlet.utils.Logger;
 import gitlet.utils.Utils;
 
 import java.io.File;
@@ -50,5 +51,7 @@ public class initCommand implements Command{
         do log things
         TODO
          */
+        Logger logger = Logger.getInstance();
+        logger.writeLog("init repo");
     }
 }

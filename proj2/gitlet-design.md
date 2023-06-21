@@ -60,8 +60,14 @@
 abstract class. When deserialized, object should be deserialized to LooseObject and can directly use related method or check type.
 
 ```java
-public enum ObjectType {
-    COMMIT, BLOB, TREE
+public enum ObjectType implements Serializable {
+    COMMIT("commit"), BLOB("blob"), TREE("tree");
+
+    private final String represent;
+    
+    ObjectType(String name) {}
+
+    public String getRepresent() {}
 }
 ```
 
@@ -73,11 +79,9 @@ public abstract class LooseObject implements Serializable{
     protected String hash;
     
     public ObjectType getType() {}
-    // public String getHash() {}
+    public String getHash() {}
     
-    public void writeLooseObject(File file) {
-        Utils.writeObject(file, this);
-    }
+    public void writeLooseObject()；
     public abstract String computeHash();
     public abstract String toString();
     
@@ -89,21 +93,24 @@ public abstract class LooseObject implements Serializable{
 ```java
 public class Commit extends LooseObject {
 	private String treeHash;
-    private ArrayList<String> parentHash;
+    private final ArrayList<String> parentHash;
     private String date;
     private String message;
     
-    public Commit(Date date) {}
+    public Commit(String date) {}
     
     public void setMessage(String message) {}
     public void setTreeHash(String treeHash) {}
     public void addParentHash(String hash) {}
     
     @Override
-    public String computeHash() {}
-    
+    public String computeHash() {}    
     @Override
     public String toString() {}
+    
+    public String toLog() {}
+    
+    private String lines2String(List<String> lines)
 }
 ```
 
@@ -113,17 +120,16 @@ public class Commit extends LooseObject {
 public class Blob extends LooseObject {
     private byte[] content;
     //private String content;
+    private final String path;
     
     public Blob(String path) {}
     
     @Override
-    public void writeLooseObject() {}
-    
-    @Override
-    public String computeHash() {}
-    
+    public String computeHash() {}    
     @Override
     public String toString() {}
+    
+    public String getPath() {}
 }
 ```
 
@@ -137,14 +143,20 @@ public class FileD implements Serializable{
     private String type;
     private String fileHash;
     private String fileName;
+    private String path;
     
-    public FileD(String mode, String type, String hash, String name) {}
+    public FileD(String path, String fileHash) {}
+    public FileD(Blob blob) {}    
     
     public String getDetail() {}
     public String getMode() {}
     public String getTpype() {}
     public String getFileHash() {}
     public String getFileName() {}
+    public String toString() {}
+    
+    private String computeMode(Path filePath) {}
+    private static int convertPermissionsToMode {}
 }
 ```
 
@@ -152,51 +164,36 @@ public class FileD implements Serializable{
 public class Tree extends LooseObject {
     private TreeMap<String, FileD> objTreeMap;
     
-    public Tree(ArrayList<String> fileNames) {}
+    public Tree(){}
+    // public Tree(ArrayList<String> fileNames) {}
     
     @Override
-    public void writeLooseObject() {}
-    
-    @Override
-    public String computeHash() {}
-    
+    public String computeHash() {}    
     @Override
     public String toString() {}
     
-    public void addObj(String fileName) {}
+    public void addObj(String filePath, String fileHash) {}
+    public void addObj(Blob blob) {}
 }
 ```
 
 ### Stage
 
 ```java
-public interface Stage {
-    public static LooseObject getAddition();
-    public static LooseObject getRemoval();
-    public static LooseObject getmodified();
-    public static LooseObject getUntracked();
-}
-```
-
-
-
-```java
 // reprensent index file in .gitlet directory
 public class Index implements Stage{
     // stage content
     private static Tree stage;
+    private static final String path = ".gitlet/index";
     
-    private static void readIndex() {}
-    
+    private static void readIndex() {}    
     private static void writeIndex() {}
     
-    public static Tree getAddition() {}
-    
-    public static Tree getRemoval() {}
-    
-    public static Tree getModified() {}
-    
+    public static Tree getAddition() {}    
+    public static Tree getRemoval() {}    
+    public static Tree getModified() {}    
     public static Tree getUntracked() {}
+    
     // add a file to index. A file may be in a new folder, which 
     // needs to make a new Tree object.
     public static void add() {}
@@ -411,10 +408,13 @@ Thinking about using an `enum` in main to represent `String command` to `command
 
 ```java
 public class Logger {
+    private String path = ".gitlet/logs";
+    private String content = "";
+    
     private Logger() {}
     
     private static class LoggerHolder {
-        private static final Logger instance = new Logger()
+        private static final Logger instance = new Logger();
     }
     
     public static Logger getInstance() {
@@ -422,7 +422,8 @@ public class Logger {
     }
     
     public void writeLog() {}
-    // public void readLog() {}
+    public void write2File() {}
+    public void readFromFile() {}
 }
 ```
 
