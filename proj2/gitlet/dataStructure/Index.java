@@ -1,5 +1,6 @@
 package gitlet.dataStructure;
 
+import gitlet.Repository;
 import gitlet.utils.Utils;
 
 import java.io.File;
@@ -15,21 +16,25 @@ import java.io.IOException;
  */
 public class Index {
     private static Tree stage;
-    private static final String path = ".gitlet/index";
+    private static final String name = "index";
 
     private static void readIndex() {
-        File f = Utils.join(path);
+        File f = Utils.join(Repository.GITLET_DIR, name);
         stage = Utils.readObject(f, Tree.class);
     }
 
     private static void writeIndex() {
-        File f = Utils.join(path);
+        File f = Utils.join(Repository.GITLET_DIR, name);
         Utils.writeObject(f, stage);
     }
 
+    /**
+     * create index file when initiating repo
+     * @throws IOException IOException
+     */
     public static void createStage() throws IOException {
         stage = new Tree();
-        File indexF = Utils.join(path);
+        File indexF = Utils.join(Repository.GITLET_DIR, name);
         if (!indexF.exists()) {
             indexF.createNewFile();
         }

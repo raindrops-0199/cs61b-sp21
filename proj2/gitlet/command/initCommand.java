@@ -1,5 +1,6 @@
 package gitlet.command;
 
+import gitlet.Repository;
 import gitlet.dataStructure.Index;
 import gitlet.dataStructure.LooseObject;
 import gitlet.dataStructure.ObjectFactory;
@@ -19,15 +20,13 @@ import java.util.Date;
  * TODO
  */
 public class initCommand implements Command{
-    private final String initPath = ".gitlet";
     @Override
     public void setParameter(String[] args) {}
 
     @Override
     public void execute() throws IOException {
         // create .gitlet folder
-        File gitlet = Utils.join(initPath);
-        if (!gitlet.mkdir()) {
+        if (!Repository.GITLET_DIR.mkdir()) {
             System.err.println("A Gitlet version-control system already exists in the current directory.");
             System.exit(0);
         }

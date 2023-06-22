@@ -68,6 +68,10 @@ public class Tree extends LooseObject implements Iterable<FileD> {
         objTreeMap.put(fd.getFileName(), fd);
     }
 
+    /**
+     * A tree may use addObj to add contents, so it's hash can't be sure at first.
+     * So we need to compute hash just before write it to file.
+     */
     @Override
     public void writeLooseObject() {
         this.hash = computeHash();
