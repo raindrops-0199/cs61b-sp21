@@ -16,7 +16,15 @@ public class Logger {
     }
 
     private static class LoggerHolder {
-        private static final Logger instance = new Logger();
+        private static final Logger instance;
+
+        static {
+            try {
+                instance = new Logger();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        }
     }
 
     public static Logger getInstance() {

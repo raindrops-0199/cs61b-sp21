@@ -20,6 +20,7 @@ public class Blob extends LooseObject{
         this.type = ObjectType.BLOB;
         File f = Utils.join(path);
         this.content = Utils.readContents(f);
+        this.hash = computeHash();
     }
 
     @Override

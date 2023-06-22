@@ -1,5 +1,6 @@
 package gitlet.command;
 
+import gitlet.dataStructure.Index;
 import gitlet.dataStructure.LooseObject;
 import gitlet.dataStructure.ObjectFactory;
 import gitlet.dataStructure.ObjectType;
@@ -26,7 +27,7 @@ public class initCommand implements Command{
     public void execute() throws IOException {
         // create .gitlet folder
         File gitlet = Utils.join(initPath);
-        if (!gitlet.createNewFile()) {
+        if (!gitlet.mkdir()) {
             System.err.println("A Gitlet version-control system already exists in the current directory.");
             System.exit(0);
         }
@@ -35,6 +36,7 @@ public class initCommand implements Command{
         create related files and folders
         TODO
          */
+        Index.createStage();
 
         // create initial commit and write to file
         Date date = new Date();

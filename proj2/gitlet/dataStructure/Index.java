@@ -27,6 +27,15 @@ public class Index {
         Utils.writeObject(f, stage);
     }
 
+    public static void createStage() throws IOException {
+        stage = new Tree();
+        File indexF = Utils.join(path);
+        if (!indexF.exists()) {
+            indexF.createNewFile();
+        }
+        writeIndex();
+    }
+
     // TODO
     public static Tree getAddition() {
         return null;

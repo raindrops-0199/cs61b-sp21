@@ -28,16 +28,11 @@ public class Main {
         String[] commandArgs = new String[0];
         switch(firstArg) {
             case "init":
-                // TODO: handle the `init` command
                 command = new initCommand();
                 break;
             case "add":
-                // TODO: handle the `add [filename]` command
                 command = new addCommand();
                 commandArgs = new String[]{restArgs[0]};
-                break;
-            // TODO: FILL THE REST IN
-            case "commit":
                 break;
         }
         Repository.setCommand(command, commandArgs);

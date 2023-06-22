@@ -1,5 +1,6 @@
 package gitlet.dataStructure;
 
+import gitlet.Repository;
 import gitlet.utils.Utils;
 
 import java.io.File;
@@ -41,7 +42,8 @@ public abstract class LooseObject implements Serializable {
      * write object to disk
      */
     public void writeLooseObject() {
-        File dir = Utils.join(hash.substring(0, 2));
+        String objDir = hash.substring(0, 2);
+        File dir = Utils.join(Repository.GITLET_DIR, objDir);
         if (!dir.exists()) {
             if (!dir.mkdir()) {
                 System.err.println("Create directory failed");

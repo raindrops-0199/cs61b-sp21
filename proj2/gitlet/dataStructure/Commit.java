@@ -40,6 +40,10 @@ public class Commit extends LooseObject{
         this.parentHash.add(hash);
     }
 
+    public void setHash() {
+        this.hash = computeHash();
+    }
+
     /**
      * Adding treeHash, parentHashes, date and message together then compute sha1
      * @return sha1 of commit contents
@@ -51,8 +55,7 @@ public class Commit extends LooseObject{
         contents.addAll(parentHash);
         contents.add(date);
         contents.add(message);
-        this.hash = Utils.sha1(contents);
-        return this.hash;
+        return Utils.sha1(contents.toArray());
     }
 
     @Override

@@ -47,6 +47,7 @@ public class ObjectFactory {
         for (int i = 4; i < args.length; i++) {
             commit.addParentHash(args[i]);
         }
+        commit.setHash();
         return commit;
     }
 

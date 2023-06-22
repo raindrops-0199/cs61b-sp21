@@ -68,6 +68,12 @@ public class Tree extends LooseObject implements Iterable<FileD> {
         objTreeMap.put(fd.getFileName(), fd);
     }
 
+    @Override
+    public void writeLooseObject() {
+        this.hash = computeHash();
+        super.writeLooseObject();
+    }
+
     public Iterator<FileD> iterator() {
         return new TreeIterator();
     }
