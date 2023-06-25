@@ -52,7 +52,5 @@ public class initCommand implements Command{
         do log things
         TODO
          */
-        Logger logger = Logger.getInstance();
-        logger.writeLog("init repo");
     }
 }

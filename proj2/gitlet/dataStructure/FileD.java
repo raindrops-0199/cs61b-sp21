@@ -76,9 +76,7 @@ public class FileD implements Serializable {
     }
 
     /**
-     * Construct via a tree
-     * @param tree Tree object to add
-     * TODO
+     * Reserved for adding support for subdirectory functions
      */
     public FileD(Tree tree) {}
 

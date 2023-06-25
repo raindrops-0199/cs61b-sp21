@@ -1,6 +1,7 @@
 package gitlet.dataStructure;
 
 import gitlet.utils.Utils;
+import net.sf.saxon.trans.SymbolicName;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -25,8 +26,9 @@ public class Tree extends LooseObject implements Iterable<FileD> {
 
     public Tree(){
         this.type = ObjectType.TREE;
+    }
 
-    }    @Override
+    @Override
     public String computeHash() {
         return Utils.sha1(toString());
     }
@@ -67,6 +69,11 @@ public class Tree extends LooseObject implements Iterable<FileD> {
         FileD fd = new FileD(blob);
         objTreeMap.put(fd.getFileName(), fd);
     }
+
+    /**
+     * Reserved for adding support for subdirectory functions
+     */
+    public void addObj(Tree tree) {}
 
     /**
      * A tree may use addObj to add contents, so it's hash can't be sure at first.
