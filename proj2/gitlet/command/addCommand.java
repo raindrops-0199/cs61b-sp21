@@ -17,13 +17,6 @@ public class addCommand implements Command{
 
     @Override
     public void execute() throws IOException {
-        String[] blobArg = {fileName};
-        LooseObject blob = ObjectFactory.create(ObjectType.BLOB, blobArg);
-        blob.writeLooseObject();
-        Index.add(fileName, blob.getHash());
 
-        // log
-        Logger logger = Logger.getInstance();
-        logger.writeLog("add " + fileName);
     }
 }

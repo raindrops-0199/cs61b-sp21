@@ -35,7 +35,7 @@ public class initCommand implements Command{
         create related files and folders
         TODO
          */
-        Index.createStage();
+
 
         // create initial commit and write to file
         Date date = new Date();

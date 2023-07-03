@@ -180,25 +180,44 @@ public class Tree extends LooseObject {
 ### Stage
 
 ```java
+public interface Stage {
+    public void createStage();
+    public String getAddition();
+    public String getRemoval();
+    public String getModified();
+    public String getUntracked();
+
+    public void add();
+    public void remove();
+}
+
+```
+
+```java
 // reprensent index file in .gitlet directory
 public class Index implements Stage{
     // stage content
-    private static Tree stage;
-    private static final String path = ".gitlet/index";
+    private Tree stage;
+    private final String NAME = "index";
     
-    private static void readIndex() {}    
-    private static void writeIndex() {}
+    private Index() {}
+    private static class IndexHolder {}
+	public static Index getInstance() {}
     
-    public static Tree getAddition() {}    
-    public static Tree getRemoval() {}    
-    public static Tree getModified() {}    
-    public static Tree getUntracked() {}
+    private void readIndex() {}    
+    private void writeIndex() {}
+    public void createStage() {}
+    
+    public String getAddition() {}    
+    public String getRemoval() {}    
+    public String getModified() {}    
+    public String getUntracked() {}
     
     // add a file to index. A file may be in a new folder, which 
     // needs to make a new Tree object.
-    public static void add() {}
+    public void add(String filePath, String fileHash) {}
     // remove a file from index.
-    public static void remove() {}
+    public void remove() {}
 }
 ```
 

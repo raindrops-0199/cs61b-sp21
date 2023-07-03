@@ -10,31 +10,76 @@ import java.io.IOException;
  * A class represents staging area in gitlet.
  * Mapping to index file in .gitlet folder.
  * Also offers options to interact with index file.
+ * Use Singleton Pattern
  *
  * @author jason
  * TODO
  */
-public class Index {
-    private static Tree stage;
-    private static final String name = "index";
+public class Index implements Stage{
+    /** stage content */
+    private Tree stage;
+    /** index file path */
+    private final String NAME = "index";
 
-    private static void readIndex() {
-        File f = Utils.join(Repository.GITLET_DIR, name);
+    private Index() throws IOException {
+        if (!this.exists()) {
+            this.createStage();
+        }
+    }
+
+    /**
+     * a holder class that makes sure only one Index instance exists
+     */
+    private static class IndexHolder {
+        private static final Index instance;
+
+        static {
+            try {
+                instance = new Index();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        }
+    }
+
+    /**
+     * Singleton Pattern
+     * for user to get an instance of Index class and make sure only one instance exists
+     * @return the only instance of Index class
+     */
+    public static Index getInstance() {
+        return IndexHolder.instance;
+    }
+
+    /**
+     * read stage content from index file
+     */
+    private void readIndex() {
+        File f = Utils.join(Repository.GITLET_DIR, NAME);
         stage = Utils.readObject(f, Tree.class);
     }
 
-    private static void writeIndex() {
-        File f = Utils.join(Repository.GITLET_DIR, name);
+    /**
+     * write stage content to index file
+     */
+    private void writeIndex() {
+        File f = Utils.join(Repository.GITLET_DIR, NAME);
         Utils.writeObject(f, stage);
     }
 
     /**
-     * create index file when initiating repo
-     * @throws IOException IOException
+     * check if index file already created
+     * @return true if index file exists
      */
-    public static void createStage() throws IOException {
+    private boolean exists() {
+        File f = Utils.join(Repository.GITLET_DIR, NAME);
+        return f.exists();
+    }
+
+    @Override
+    public void createStage() throws IOException {
         stage = new Tree();
-        File indexF = Utils.join(Repository.GITLET_DIR, name);
+        File indexF = Utils.join(Repository.GITLET_DIR, NAME);
         if (!indexF.exists()) {
             indexF.createNewFile();
         }
@@ -42,39 +87,40 @@ public class Index {
     }
 
     // TODO
-    public static Tree getAddition() {
+    @Override
+    public String getAddition() {
+
+    }
+
+    // TODO
+    @Override
+    public String getRemoval() {
         return null;
     }
 
     // TODO
-    public static Tree getRemoval() {
+    @Override
+    public String getModified() {
         return null;
     }
 
     // TODO
-    public static Tree getModified() {
+    @Override
+    public String getUntracked() {
         return null;
     }
 
-    // TODO
-    public static Tree getUntracked() {
-        return null;
-    }
-
-    /**
-     * Add a file to index. A file may be in a new folder, which needs to make a new Tree object.
-     * For now, there's no subdirectories, so not considering tree.
-     * @param filePath path of file.
-     * @param fileHash hash of file.
-     * @throws IOException IOException
-     */
-    public static void add(String filePath, String fileHash) throws IOException {
+    @Override
+    public void add(String filePath, String fileHash) throws IOException {
         readIndex();
         stage.addObj(filePath, fileHash);
         writeIndex();
     }
 
-    // remove a file from index.
-    // TODO
-    public static void remove() {}
+    @Override
+    public void remove(String filePath) {
+        readIndex();
+        stage.removeObj(filePath);
+        writeIndex();
+    }
 }

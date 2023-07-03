@@ -20,6 +20,7 @@ import java.util.TreeMap;
  * TODO
  */
 public class Tree extends LooseObject implements Iterable<FileD> {
+    /** FileName: FileD */
     private final TreeMap<String, FileD> objTreeMap = new TreeMap<>();
 
     // public Tree(ArrayList<String> fileNames) {}
@@ -74,6 +75,14 @@ public class Tree extends LooseObject implements Iterable<FileD> {
      * Reserved for adding support for subdirectory functions
      */
     public void addObj(Tree tree) {}
+
+    /**
+     * remove blob or tree from objTree map by file path
+     * @param filePath path of file or directory
+     */
+    public void removeObj(String filePath) {
+        objTreeMap.remove(filePath);
+    }
 
     /**
      * A tree may use addObj to add contents, so it's hash can't be sure at first.
