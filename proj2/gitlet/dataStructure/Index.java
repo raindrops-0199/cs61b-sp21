@@ -1,5 +1,6 @@
 package gitlet.dataStructure;
 
+import gitlet.Config;
 import gitlet.Repository;
 import gitlet.utils.Utils;
 
@@ -55,7 +56,7 @@ public class Index implements Stage{
      * read stage content from index file
      */
     private void readIndex() {
-        File f = Utils.join(Repository.GITLET_DIR, NAME);
+        File f = Utils.join(Config.GITLET_DIR, NAME);
         stage = Utils.readObject(f, Tree.class);
     }
 
@@ -63,7 +64,7 @@ public class Index implements Stage{
      * write stage content to index file
      */
     private void writeIndex() {
-        File f = Utils.join(Repository.GITLET_DIR, NAME);
+        File f = Utils.join(Config.GITLET_DIR, NAME);
         Utils.writeObject(f, stage);
     }
 
@@ -72,14 +73,14 @@ public class Index implements Stage{
      * @return true if index file exists
      */
     private boolean exists() {
-        File f = Utils.join(Repository.GITLET_DIR, NAME);
+        File f = Utils.join(Config.GITLET_DIR, NAME);
         return f.exists();
     }
 
     @Override
     public void createStage() throws IOException {
         stage = new Tree();
-        File indexF = Utils.join(Repository.GITLET_DIR, NAME);
+        File indexF = Utils.join(Config.GITLET_DIR, NAME);
         if (!indexF.exists()) {
             if (!indexF.createNewFile()) {
                 throw new IOException("Create index file fail");

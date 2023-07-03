@@ -1,5 +1,6 @@
 package gitlet.utils;
 
+import gitlet.Config;
 import gitlet.Repository;
 
 import java.io.File;
@@ -11,7 +12,7 @@ public class Logger {
 
 
     private Logger() throws IOException {
-        File log = Utils.join(Repository.GITLET_DIR, name);
+        File log = Utils.join(Config.GITLET_DIR, name);
         if (!log.exists()) {
             log.createNewFile();
         }
@@ -40,7 +41,7 @@ public class Logger {
     }
 
     private void write2File() throws IOException {
-        File log = Utils.join(Repository.GITLET_DIR, name);
+        File log = Utils.join(Config.GITLET_DIR, name);
         if (!log.exists()) {
             log.createNewFile();
         }
@@ -48,7 +49,7 @@ public class Logger {
     }
 
     public void readFromFile() {
-        File log = Utils.join(Repository.GITLET_DIR, name);
+        File log = Utils.join(Config.GITLET_DIR, name);
         if (!log.exists()) {
             System.err.println("Log file doesn't exist");
         }

@@ -1,5 +1,6 @@
 package gitlet.command;
 
+import gitlet.Config;
 import gitlet.Repository;
 import gitlet.dataStructure.Index;
 import gitlet.dataStructure.LooseObject;
@@ -26,7 +27,7 @@ public class initCommand implements Command{
     @Override
     public void execute() throws IOException {
         // create .gitlet folder
-        if (!Repository.GITLET_DIR.mkdir()) {
+        if (!Config.GITLET_DIR.mkdir()) {
             System.err.println("A Gitlet version-control system already exists in the current directory.");
             System.exit(0);
         }
