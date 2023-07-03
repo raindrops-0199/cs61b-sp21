@@ -81,7 +81,9 @@ public class Index implements Stage{
         stage = new Tree();
         File indexF = Utils.join(Repository.GITLET_DIR, NAME);
         if (!indexF.exists()) {
-            indexF.createNewFile();
+            if (!indexF.createNewFile()) {
+                throw new IOException("Create index file fail");
+            }
         }
         writeIndex();
     }
@@ -89,25 +91,25 @@ public class Index implements Stage{
     // TODO
     @Override
     public String getAddition() {
-
+        return "";
     }
 
     // TODO
     @Override
     public String getRemoval() {
-        return null;
+        return "";
     }
 
     // TODO
     @Override
     public String getModified() {
-        return null;
+        return "";
     }
 
     // TODO
     @Override
     public String getUntracked() {
-        return null;
+        return "";
     }
 
     @Override
