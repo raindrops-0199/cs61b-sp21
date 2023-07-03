@@ -4,6 +4,9 @@ import java.io.File;
 
 import static gitlet.utils.Utils.*;
 
+/**
+ * A class store config things about gitlet directory structure
+ */
 public class Config {
     /** The current working directory. */
     public static final File CWD = new File(System.getProperty("user.dir"));
@@ -25,4 +28,11 @@ public class Config {
 
     /** objects directory in .gitlet directory. */
     public static final File OBJ_DIR = join(GITLET_DIR, "objects");
+
+    /** index file in .gitlet directory. */
+    public static final File INDEX_FILE = join(GITLET_DIR, "index");
+
+    /** default branch and its ref file in refs directory. */
+    private static final String defaultBranch = "master";
+    public static final File DEFAULT_BRANCH_REF = join(REFS_DIR, defaultBranch);
 }

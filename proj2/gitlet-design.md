@@ -55,7 +55,7 @@
 
 ## 2.2 Classes
 
-### LooseObject
+### a) LooseObject
 
 abstract class. When deserialized, object should be deserialized to LooseObject and can directly use related method or check type.
 
@@ -70,8 +70,6 @@ public enum ObjectType implements Serializable {
     public String getRepresent() {}
 }
 ```
-
-
 
 ```java
 public abstract class LooseObject implements Serializable{
@@ -88,7 +86,7 @@ public abstract class LooseObject implements Serializable{
 }
 ```
 
-### Commit
+### b) Commit
 
 ```java
 public class Commit extends LooseObject {
@@ -114,7 +112,7 @@ public class Commit extends LooseObject {
 }
 ```
 
-### Blob
+### c) Blob
 
 ```java
 public class Blob extends LooseObject {
@@ -133,7 +131,7 @@ public class Blob extends LooseObject {
 }
 ```
 
-### Tree 
+### d) Tree 
 
 In this project tree object isn't necessary, as there whon't deal with subdirectories. But I still implement tree object to make it more general and similar to real git.
 
@@ -177,7 +175,7 @@ public class Tree extends LooseObject {
 }
 ```
 
-### Stage
+### e) Stage
 
 ```java
 public interface Stage {
@@ -221,22 +219,37 @@ public class Index implements Stage{
 }
 ```
 
-### Repository
+### f) Repository
 
 ```java
 public class Repository {
-    
     public static void <command_name>() {}
 }
 ```
 
+### g) Config
+
+store config things about gitlet directory structure
+
+```java
+public class Config {
+    public static final File CWD = new File(System.getProperty("user.dir"));
+
+    public static final File GITLET_DIR = join(CWD, ".gitlet");
+    
+    ...
+}
+```
+
+
+
 #  3 Commands Implementation
 
-## init
+## 1) init
 
 create .gitlet directory and create all necessary files and directories in .gitlet directory. Default branch is master.
 
-## add
+## 2) add
 
 if already in stage area: 
 
@@ -249,30 +262,30 @@ else:
 
 remember: two different file name may have same content making them have same hash. In this case, they refer to one blob. So when making a blob, if the same blob already exists, don't have to make a new one.
 
-## commit
+## 3) commit
 
 Make a new commit with message and author, date, etc. Save the index Tree into objects and get its hash.
 
 Update HEAD hash and branch hash
 
-## rm
+## 4) rm
 
 - file not tracked in current commit and staged: remove it from staging area.
 - file tracked: remove it from directory and staging area.
 
-## log
+## 5) log
 
 from HEAD-branch hash, iterate over all commit to first commit, following the first parent commit links.
 
-## global-log
+## 6) global-log
 
 travel through all objects, if is commit, print it out.
 
-## find
+## 7) find
 
 travel through all objects, if is commit and has same commit message, print it out.
 
-## status
+## 8) status
 
 1. Get the files of stage by index file, and compare with the last committed tree
    - More files: stage for addition
@@ -281,7 +294,7 @@ travel through all objects, if is commit and has same commit message, print it o
    - Files in stage but not staged: modified but not staged
    - Files not in stage: untracked files
 
-## checkout
+## 9) checkout
 
 1. Find HEAD-branch commit and find tree then find the needed file. Overwrite the current one. 
 
@@ -291,19 +304,19 @@ travel through all objects, if is commit and has same commit message, print it o
 
    Change HEAD to new branch.
 
-## branch
+## 10) branch
 
 Create a new branch thich point to current commit. Add it to refs/heads folder. Do not switch branch.
 
-## rm-branch
+## 11) rm-branch
 
 Remove branch. Don't change any commits.
 
-## reset
+## 12) reset
 
 Checkout to that commit and moves the current branch’s head to that commit node.
 
-## merge
+## 13) merge
 
 split point: latest *common ancestor*
 
@@ -423,11 +436,29 @@ Thinking about using an `enum` in main to represent `String command` to `command
 
 ## 5.4 Singleton Pattern
 
+### Index
+
+```java
+public class Index implements Stage {	
+	private Index() throws IOException {
+        if (!this.exists()) {
+            this.createStage();
+        }
+    }
+
+    private static class IndexHolder {
+        private static final Index instance = new Index();
+
+	public static Index getInstance() {
+        return IndexHolder.instance;
+    }
+}
+```
+
 ### Logger
 
 ```java
 public class Logger {
-    private String path = ".gitlet/logs";
     private String content = "";
     
     private Logger() {}
@@ -440,9 +471,7 @@ public class Logger {
         return LoggerHolder.instance;
     }
     
-    public void writeLog() {}
-    public void write2File() {}
-    public void readFromFile() {}
+    ...
 }
 ```
 

@@ -19,8 +19,6 @@ import java.io.IOException;
 public class Index implements Stage{
     /** stage content */
     private Tree stage;
-    /** index file path */
-    private final String NAME = "index";
 
     private Index() throws IOException {
         if (!this.exists()) {
@@ -56,16 +54,14 @@ public class Index implements Stage{
      * read stage content from index file
      */
     private void readIndex() {
-        File f = Utils.join(Config.GITLET_DIR, NAME);
-        stage = Utils.readObject(f, Tree.class);
+        stage = Utils.readObject(Config.INDEX_FILE, Tree.class);
     }
 
     /**
      * write stage content to index file
      */
     private void writeIndex() {
-        File f = Utils.join(Config.GITLET_DIR, NAME);
-        Utils.writeObject(f, stage);
+        Utils.writeObject(Config.INDEX_FILE, stage);
     }
 
     /**
@@ -73,16 +69,14 @@ public class Index implements Stage{
      * @return true if index file exists
      */
     private boolean exists() {
-        File f = Utils.join(Config.GITLET_DIR, NAME);
-        return f.exists();
+        return Config.INDEX_FILE.exists();
     }
 
     @Override
     public void createStage() throws IOException {
         stage = new Tree();
-        File indexF = Utils.join(Config.GITLET_DIR, NAME);
-        if (!indexF.exists()) {
-            if (!indexF.createNewFile()) {
+        if (!Config.INDEX_FILE.exists()) {
+            if (!Config.INDEX_FILE.createNewFile()) {
                 throw new IOException("Create index file fail");
             }
         }
