@@ -56,6 +56,16 @@ public abstract class LooseObject implements Serializable {
         }
     }
 
+    public static LooseObject readLooseObject(String hash) {
+        String objDir = hash.substring(0, 2);
+        File dir = Utils.join(Config.OBJ_DIR, objDir);
+        if (!dir.exists()) {
+            System.err.println("error");
+        }
+        File file = Utils.join(dir, hash.substring(2));
+        return Utils.readObject(file, LooseObject.class);
+    }
+
     /**
      * compute the SHA-1 hash of the object
      * @return hash

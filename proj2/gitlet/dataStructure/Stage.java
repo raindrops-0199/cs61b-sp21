@@ -45,5 +45,5 @@ public interface Stage {
      * remove a blob or tree from stage area
      * @param filePath path to file or directory
      */
-    public void remove(String filePath);
+    public void remove(String filePath); 
 }

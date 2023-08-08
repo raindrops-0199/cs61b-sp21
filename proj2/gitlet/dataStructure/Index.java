@@ -1,10 +1,8 @@
 package gitlet.dataStructure;
 
 import gitlet.Config;
-import gitlet.Repository;
 import gitlet.utils.Utils;
 
-import java.io.File;
 import java.io.IOException;
 
 /**
